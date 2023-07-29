@@ -1,4 +1,4 @@
-name: Gradle Package
+name: CD-PIPELINE-ANDROID
 on:
   push:
     branches: [develop, release, main]
