@@ -1,4 +1,4 @@
-name: ci-sonarqube-android
+name: CI-PIPELINE-ANDROID
 on:
   pull_request:
     branches: [develop, release, main]
@@ -10,12 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           java-version: 11
-          distribution: 'zulu' 
+          distribution: 'zulu' # Alternative distribution options are available
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
         with:
@@ -28,9 +28,13 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+          
+      - name: Permisos
+        run: chmod +x gradlew
+
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew build sonar --info
 
