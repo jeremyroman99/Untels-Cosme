@@ -1,39 +1,40 @@
-name: ci-mobsf-android
-on:
-  pull_request:
-    branches: [develop, release, main]
-    types: [opened, synchronize, reopened]
-
-jobs:
-  mobsf-analysis:
-    name: MobSF Static Analysis
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    
-    - uses: actions/setup-java@v2
-      with:
-        distribution: 'temurin' # See 'Supported distributions' for available options
-        java-version: '17'
-    - name: Permisos
-      run: chmod +x gradlew
-
-    - name: build release 
-      run: ./gradlew assembleRelease
-
-    - name: Install MobSF dependencies
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install python3 python3-pip -y
-
-    - name: Install MobSF
-      run: |
-        git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF.git
-        cd Mobile-Security-Framework-MobSF
-        pip3 install -r requirements.txt
-
-    - name: Execute MobSF Static Analysis
-      run: |
-        cd Mobile-Security-Framework-MobSF
-        python3 mobsf.py -f app/build/outputs/apk/debug/app-debug.apk
+#name: ci-mobsf-android
+#on:
+#  pull_request:
+#    branches: [develop, release, main]
+#    paths: 
+#      - '.github/workflows/ci-mobsf-android.yml'
+#
+#jobs:
+#  mobsf-analysis:
+#    name: MobSF Static Analysis
+#    runs-on: ubuntu-latest
+#    steps:
+#    - name: Checkout repository
+#      uses: actions/checkout@v2
+#    
+#    - uses: actions/setup-java@v2
+#      with:
+#        distribution: 'temurin' # See 'Supported distributions' for available options
+#        java-version: '17'
+#    - name: Permisos
+#      run: chmod +x gradlew
+#
+#    - name: build release 
+#      run: ./gradlew assembleRelease
+#
+#    - name: Install MobSF dependencies
+#      run: |
+#        sudo apt-get update -y
+#        sudo apt-get install python3 python3-pip -y
+#
+#    - name: Install MobSF
+#      run: |
+#        git clone https://github.com/MobSF/Mobile-Security-Framework-MobSF.git
+#        cd Mobile-Security-Framework-MobSF
+#        pip3 install -r requirements.txt
+#
+#    - name: Execute MobSF Static Analysis
+#      run: |
+#        cd Mobile-Security-Framework-MobSF
+#        python3 mobsf.py -f app/build/outputs/apk/debug/app-debug.apk

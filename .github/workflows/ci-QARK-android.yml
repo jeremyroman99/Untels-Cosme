@@ -1,0 +1,30 @@
+name: QARK Analysis
+on:
+  pull_request:
+    branches: [develop, release, main]
+    paths: 
+      - '.github/workflows/ci-QARK-android.yml'
+
+jobs:
+  qark-analysis:
+    name: QARK Security Analysis
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install QARK dependencies
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install python3 python3-pip -y
+
+    - name: Install QARK
+      run: |
+        git clone https://github.com/linkedin/qark.git
+        cd qark
+        pip3 install -r requirements.txt
+
+    - name: Execute QARK Analysis
+      run: |
+        cd qark
+        python3 qarkMain.py --apk /APK/app-debug.apk
