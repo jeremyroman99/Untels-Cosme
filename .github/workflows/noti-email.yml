@@ -10,12 +10,12 @@ jobs:
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
-          connection_url: ${{secrets.MAIL_CONNECTION}}
+          connection_url: ${{secrets.MAIL_CONNECTION}} #smtp://smtp.gmail.com
           server_address: smtp.gmail.coma
           server_port: 587
           secure: true
           username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
+          password: ${{secrets.MAIL_PASSWORD}} #contraseña por aplicacion
           subject: Github Actions job result
           to: jeremyjor299@gmail.com
           from: Luke Skywalker 
