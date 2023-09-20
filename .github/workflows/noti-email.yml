@@ -7,11 +7,15 @@ jobs:
     name: Build and analyze
     runs-on: ubuntu-latest
     steps:
-      - uses: dawidd6/action-send-mail@v3
+      - name: Send some mail
+        uses: wadeww/send-email-action@master
         with:
-          subject: Github Actions job result
-          to: jeremyjor299@gmail.com
-          from: JEREMY ROMAN
           server_address: smtp.gmail.com
           port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Workflow finished
+          body: Job completed ${{job.status}}
+          to: jeremyjor299@gmail.com
+          from: Me
 
