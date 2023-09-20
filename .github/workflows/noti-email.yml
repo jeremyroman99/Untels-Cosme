@@ -1,0 +1,15 @@
+name: noti
+on:
+  push:
+    branches: [main]
+jobs:
+  Noti:
+    name: Build and analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dawidd6/action-send-mail@v3
+        with:
+          subject: Github Actions job result
+          to: jeremyjor299@gmail.com
+          from: JEREMY ROMAN
+
