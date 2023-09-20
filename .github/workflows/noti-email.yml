@@ -12,4 +12,6 @@ jobs:
           subject: Github Actions job result
           to: jeremyjor299@gmail.com
           from: JEREMY ROMAN
+          server_address: smtp.gmail.com
+          port: 465
 
